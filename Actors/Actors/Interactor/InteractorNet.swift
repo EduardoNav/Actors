@@ -50,24 +50,7 @@ class InteractorNet: NSObject {
     }
     
     func getListIm(elements: [BaseEntity]){
-        for n in 0..<elements.count{
-            dispatchGroup.enter()
-            DispatchQueue.main.async{
-                
-                if elements[n].strUrlImage == ""{
-                    elements[n].imgDetailImage = UIImage(named: "notfound")
-                    self.dispatchGroup.leave()
-                } else {
-                    self.imageService.getImage(from: URL(string: elements[n].strUrlImage!)!, completion: {image in
-                        elements[n].imgDetailImage = image
-                        self.dispatchGroup.leave()
-                    })
-                }
-            }
-        }
-        dispatchGroup.notify(queue: .main) {
-            self.delegate?.retriveObject(entityArray: elements)
-        }
+        self.delegate?.retriveObject(entityArray: elements)
     }
     
 }
